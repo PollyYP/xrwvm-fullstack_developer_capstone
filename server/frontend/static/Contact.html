@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/bootstrap.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkturquoise; height: 1in;">
+        <div class="container-fluid">
+          <h2 style="padding-right: 5%;">Dealerships</h2>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" style="font-size: larger;" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" style="font-size: larger;" href="/about">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" style="font-size: larger;" href="/contact">Contact Us</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    
+    <div class="card" style="width: 55%; margin: auto; margin-top:2%;">
+        <div class="contact-container">
+            <div class="banner" name="contact-header">
+                <h1>Contact Us</h1>
+            </div>
+            <!-- Image Container -->
+            <div class="contact-image">
+                <img src="https://images.pexels.com/photos/164634/pexels-photo-164634.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Contact Us">
+            </div>
+
+            <!-- Form Container -->
+            <div class="form-container">
+                <form>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" rows="4" placeholder="Your message..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Submit</button>
+                </form>
+            </div>
+
+            <!-- Details Box -->
+            <div class="details-box">
+                <p>Address: 123 Main Street, Anytown, USA</p>
+                <p>Email: info@example.com</p>
+                <p>Phone: (123) 456-7890</p>
+            </div>
+        </div>
+    </div>
+</html>

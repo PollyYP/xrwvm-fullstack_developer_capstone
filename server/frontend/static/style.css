@@ -1,26 +1,39 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
 img{
   width: 60%;
   align-self: center;
 }
 
-.card{
-  border: rgb(103, 102, 105) 3px solid;
-  display: flex;  
-  flex-direction: column;
-  margin-left:5%;
-  margin-right:5%;
-  margin-top: 1%;
-  margin-bottom: 1%;
+/* Card Styles */
+.card {
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow effect */
 }
 
-.row{
-  display: flex;  
-  flex: 1;
-  flex-direction: row;
-  margin: auto;
-  margin-top: 1%;
-  justify-content: center;
-  padding:20px;
+.card-body {
+  padding: 1rem;
+}
+
+/* Customize the card images */
+.card-img-top {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ddd; /* Adds a border below the image */
+}
+
+.team-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.card-text{
+  color: #555;
 }
 
 .container{
@@ -54,6 +67,8 @@ img{
 }
 
 .banner{
+  margin-top: 1%;
+  margin-bottom: 1%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -123,4 +138,33 @@ img{
     border-radius:50px;
     text-align:center;
     box-shadow: 2px 2px 3px #999;  
+}
+
+/* Contact Us Page */
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+}
+
+.contact-image img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.form-container {
+  width: 100%;
+  padding-left: 20px;
+}
+
+.details-box {
+  text-align: center;
+  padding: 10px;
+  color: #495057;
 }
