@@ -39,8 +39,17 @@ def login_user(request):
     return JsonResponse(data)
 
 # Create a `logout_request` view to handle sign out request
-# def logout_request(request):
-# ...
+def logout_request(request):
+    if request.method == "GET":
+        # Log out the user
+        username = request.user.username if request.user.is_authenticated else ""
+        logout(request)
+        # Prepare response data
+        data = {"userName": username, "status": "Logged Out"}
+        return JsonResponse(data)
+    else:
+        # Return an error response for non-POST requests
+        return JsonResponse({"error": "Invalid request method."}, status=400)
 
 # Create a `registration` view to handle sign up request
 # @csrf_exempt
