@@ -1,5 +1,4 @@
-# Uncomment the imports below before you add the function code
-# import requests
+import requests
 import os
 from dotenv import load_dotenv
 
@@ -15,20 +14,21 @@ sentiment_analyzer_url = os.getenv(
 # Add code for get requests to back end
 def get_request(endpoint, **kwargs):
     params = ""
-    if(kwargs):
-        for key,value in kwargs.items():
-            params=params+key+"="+value+"&"
+    if kwargs:
+        for key, value in kwargs.items():
+            params += f"{key}={value}&"
 
-    request_url = backend_url+endpoint+"?"+params
+    request_url = backend_url + endpoint + ("?" + params if params else "")
 
-    print("GET from {} ".format(request_url))
+    print(f"Attempting to GET data from: {request_url}")  # Debug print
     try:
-        # Call get method of requests library with URL and parameters
         response = requests.get(request_url)
+        response.raise_for_status()  # Raise HTTP errors
+        print(f"Response received: {response.json()}")  # Debug print
         return response.json()
-    except:
-        # If any error occurs
-        print("Network exception occurred")
+    except requests.exceptions.RequestException as e:
+        print(f"Error during GET request: {e}")  # Debug print
+        return None
 
 # def analyze_review_sentiments(text):
 # request_url = sentiment_analyzer_url+"analyze/"+text
