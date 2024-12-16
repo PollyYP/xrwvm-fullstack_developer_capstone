@@ -13,6 +13,7 @@ const Dealer = () => {
   const [reviews, setReviews] = useState([]);
   const [unreviewed, setUnreviewed] = useState(false);
   const [postReview, setPostReview] = useState(<></>);
+  const [loadingReviews, setLoadingReviews] = useState(true); // State to track loading reviews
 
   let curr_url = window.location.href;
   let root_url = curr_url.substring(0, curr_url.indexOf("dealer"));
@@ -26,7 +27,6 @@ const Dealer = () => {
     try {
       const res = await fetch(dealer_url, { method: "GET" });
       const retobj = await res.json();
-
       console.log("Dealer Data Response:", retobj); // Log to check the response
 
       if (retobj.status === 200) {
@@ -40,15 +40,24 @@ const Dealer = () => {
   };
 
   const get_reviews = async () => {
-    const res = await fetch(reviews_url, { method: "GET" });
-    const retobj = await res.json();
+    setLoadingReviews(true); // Set loading to true when starting to fetch reviews
+    try {
+      const res = await fetch(reviews_url, { method: "GET" });
+      const retobj = await res.json();
 
-    if (retobj.status === 200) {
-      if (retobj.reviews.length > 0) {
-        setReviews(retobj.reviews);
-      } else {
-        setUnreviewed(true);
+      console.log("Reviews Data Response:", retobj); // Log to check the reviews data
+
+      if (retobj.status === 200) {
+        if (retobj.reviews.length > 0) {
+          setReviews(retobj.reviews);
+        } else {
+          setUnreviewed(true);
+        }
       }
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+    } finally {
+      setLoadingReviews(false); // Set loading to false after the reviews fetch is done
     }
   };
 
@@ -83,9 +92,9 @@ const Dealer = () => {
         </h4>
       </div>
       <div className="reviews_panel">
-        {reviews.length === 0 && unreviewed === false ? (
+        {loadingReviews ? (
           <text>Loading Reviews....</text>
-        ) : unreviewed === true ? (
+        ) : unreviewed ? (
           <div>No reviews yet! </div>
         ) : (
           reviews.map((review) => (
