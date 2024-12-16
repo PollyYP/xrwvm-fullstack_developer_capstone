@@ -133,7 +133,7 @@ def get_dealer_reviews(request, dealer_id):
 
                 else:
                     print(
-                        "Error: Sentiment analysis failed or returned incomplete data."
+                        "Error: "Sentiment analysis error"
                     )
 
                     review_detail['sentiment'] = "unknown"
