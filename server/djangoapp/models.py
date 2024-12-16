@@ -1,37 +1,52 @@
-# Uncomment the following imports before adding the Model code
+"""
+Django models for the application.
+
+This module defines the CarMake and CarModel models used to represent car data in the database.
+These models include details such as the car make, model name, type, year, and their relationships.
+"""
 
 from django.db import models
-from django.utils.timezone import now
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
-# Create your models here.
-
-# <HINT> Create a Car Make model `class CarMake(models.Model)`:
-# - Name
-# - Description
-# - Any other fields you would like to include in car make model
-# - __str__ method to print a car make object
+# CarMake model
 class CarMake(models.Model):
+    """
+    Model representing a car manufacturer.
+
+    Attributes:
+        name (str): The name of the car make.
+        description (str): A detailed description of the car make.
+    """
+
     name = models.CharField(max_length=100)
     description = models.TextField()
-    
+
     def __str__(self):
-        return self.name  # Return the name as the string representation
+        """
+        String representation of a CarMake instance.
+
+        Returns:
+            str: The name of the car make.
+        """
+        return str(self.name)
 
 
-# <HINT> Create a Car Model model `class CarModel(models.Model):`:
-# - Many-To-One relationship to Car Make model (One Car Make has many
-# Car Models, using ForeignKey field)
-# - Name
-# - Type (CharField with a choices argument to provide limited choices
-# such as Sedan, SUV, WAGON, etc.)
-# - Year (IntegerField) with min value 2015 and max value 2023
-# - Any other fields you would like to include in car model
-# - __str__ method to print a car make object
+# CarModel model
 class CarModel(models.Model):
+    """
+    Model representing a car model.
+
+    Attributes:
+        car_make (CarMake): The car make associated with this model.
+        dealer_id (int): The ID of the dealer for this car model.
+        name (str): The name of the car model.
+        type (str): The type of the car (e.g., Sedan, SUV, Wagon).
+        year (int): The manufacturing year of the car.
+    """
+
     car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)  # Many-to-One relationship
-    dealer_id = models.IntegerField(null=True, blank=True) 
+    dealer_id = models.IntegerField(null=True, blank=True)
     name = models.CharField(max_length=100)
     CAR_TYPES = [
         ('SEDAN', 'Sedan'),
@@ -40,11 +55,19 @@ class CarModel(models.Model):
         # Add more choices as required
     ]
     type = models.CharField(max_length=10, choices=CAR_TYPES, default='SUV')
-    year = models.IntegerField(default=2023,
+    year = models.IntegerField(
+        default=2023,
         validators=[
             MaxValueValidator(2023),
             MinValueValidator(2015)
-        ])
+        ]
+    )
 
     def __str__(self):
-        return self.name  # Return the name as the string representation
+        """
+        String representation of a CarModel instance.
+
+        Returns:
+            str: The name of the car model with its type and year.
+        """
+        return f"{self.name} ({self.type}, {self.year})"
