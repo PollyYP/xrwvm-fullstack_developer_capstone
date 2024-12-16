@@ -131,8 +131,8 @@ def get_dealer_reviews(request, dealer_id):
                     sentiment = sentiment_response['sentiment']
                     review_detail['sentiment'] = sentiment
 
-                else: print("Error: Sentiment analysis error")
-
+                else:
+                    print("Error: Sentiment analysis error")
                     review_detail['sentiment'] = "unknown"
             else:
                 print("No review text found for this entry.")
