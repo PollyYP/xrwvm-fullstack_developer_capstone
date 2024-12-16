@@ -1,8 +1,8 @@
 """
 Django models for the application.
 
-This module defines the CarMake and CarModel models used to represent car data in the database.
-These models include details such as the car make, model name, type, year, and their relationships.
+This module defines the CarMake and CarModel models for representing car data in the database,
+including make, model, type, year, and relationships.
 """
 
 from django.db import models
@@ -45,7 +45,9 @@ class CarModel(models.Model):
         year (int): The manufacturing year of the car.
     """
 
-    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)  # Many-to-One relationship
+    car_make = models.ForeignKey(
+    CarMake, on_delete=models.CASCADE
+    )  # Many-to-One relationship
     dealer_id = models.IntegerField(null=True, blank=True)
     name = models.CharField(max_length=100)
     CAR_TYPES = [

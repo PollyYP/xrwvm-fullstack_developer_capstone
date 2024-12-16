@@ -14,7 +14,7 @@ class CarModelInline(admin.TabularInline):
     """
     Inline admin configuration for CarModel.
 
-    Allows CarModel instances to be managed directly within the CarMake admin panel.
+    Enables managing CarModel instances within the CarMake admin panel.
     """
     model = CarModel
     extra = 1

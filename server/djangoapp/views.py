@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.http import JsonResponse
@@ -12,6 +11,7 @@ from .models import CarMake, CarModel
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
+
 
 @csrf_exempt
 def login_user(request):
@@ -32,7 +32,9 @@ def login_user(request):
 def logout_request(request):
     """ Handle logout request. """
     if request.method == "GET":
-        username = request.user.username if request.user.is_authenticated else ""
+        username = request.user.username
+        if request.user.is_authenticated
+        else ""
         logout(request)
         return JsonResponse({"userName": username, "status": "Logged Out"})
 
@@ -51,7 +53,12 @@ def registration(request):
 
     try:
         User.objects.get(username=username)
-        return JsonResponse({"userName": username, "error": "Already Registered"})
+        return JsonResponse(
+            {
+                "userName": username,
+                "error": "Already Registered"
+            }
+        )
     except User.DoesNotExist:
         logger.debug(f"{username} is a new user.")
 
@@ -60,12 +67,21 @@ def registration(request):
         password=password, email=email
     )
     login(request, user)
-    return JsonResponse({"userName": username, "status": "Authenticated"})
+    return JsonResponse(
+        {
+            "userName": username,
+            "status": "Authenticated"
+        }
+    )
 
 
 def get_dealerships(request, state="All"):
     """ Fetch and return a list of dealerships based on state. """
-    endpoint = f"/fetchDealers/{state}" if state != "All" else "/fetchDealers"
+    if state != "All":
+    endpoint = f"/fetchDealers/{state}"
+    else:
+    endpoint = "/fetchDealers"
+
     dealerships = get_request(endpoint)
 
     if dealerships is None:
@@ -81,7 +97,13 @@ def get_dealerships(request, state="All"):
 def get_dealer_reviews(request, dealer_id):
     """ Fetch and process reviews for a specific dealer. """
     if not dealer_id:
-        return JsonResponse({"status": 400, "message": "Bad Request: Dealer ID is required."}, status=400)
+        return JsonResponse(
+            {
+                "status": 400,
+                "message": "Bad Request: Dealer ID is required."
+            },
+                status=400
+        )
 
     endpoint = f"/fetchReviews/dealer/{dealer_id}"
     print(f"Fetching reviews for dealer ID: {dealer_id}")
@@ -90,7 +112,13 @@ def get_dealer_reviews(request, dealer_id):
         reviews = get_request(endpoint)
         if not reviews:
             print("No reviews found or API returned None.")
-            return JsonResponse({"status": 404, "message": "No reviews found for the specified dealer."}, status=404)
+            return JsonResponse(
+                {
+                    "status": 404,
+                    "message": "No reviews found for the specified dealer."
+                },
+                    status=404
+            )
 
         for review_detail in reviews:
             review_text = review_detail.get('review', '')
@@ -145,6 +173,12 @@ def get_cars(request):
         initiate()
 
     car_models = CarModel.objects.select_related('car_make')
-    cars = [{"CarModel": car_model.name, "CarMake": car_model.car_make.name} for car_model in car_models]
+    cars = [
+        {
+            "CarModel": car_model.name,
+            "CarMake": car_model.car_make.name
+        }
+        for car_model in car_models
+        ]
 
     return JsonResponse({"CarModels": cars})
