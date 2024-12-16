@@ -42,7 +42,6 @@ def logout_request(request):
     return JsonResponse({"error": "Invalid request method."}, status=400)
 
 
-
 @csrf_exempt
 def registration(request):
     """ Handle user registration. """
@@ -104,7 +103,7 @@ def get_dealer_reviews(request, dealer_id):
                 "status": 400,
                 "message": "Bad Request: Dealer ID is required."
             },
-                status=400
+            status=400
         )
 
     endpoint = f"/fetchReviews/dealer/{dealer_id}"
@@ -119,7 +118,7 @@ def get_dealer_reviews(request, dealer_id):
                     "status": 404,
                     "message": "No reviews found for the specified dealer."
                 },
-                    status=404
+                status=404
             )
 
         for review_detail in reviews:
@@ -131,7 +130,10 @@ def get_dealer_reviews(request, dealer_id):
                 if sentiment_response and 'sentiment' in sentiment_response:
                     review_detail['sentiment'] = sentiment_response['sentiment']
                 else:
-                    print("Error: Sentiment analysis failed or returned incomplete data.")
+                    print(
+                        "Error: Sentiment analysis failed or returned incomplete data."
+                    )
+
                     review_detail['sentiment'] = "unknown"
             else:
                 print("No review text found for this entry.")
@@ -140,8 +142,17 @@ def get_dealer_reviews(request, dealer_id):
         return JsonResponse({"status": 200, "reviews": reviews}, status=200)
 
     except Exception as e:
-        print(f"Error while fetching or processing reviews: {e}")
-        return JsonResponse({"status": 500, "message": "Internal Server Error"}, status=500)
+        print(
+            f"Error while fetching or processing reviews: {e}"
+        )
+        return JsonResponse(
+            {
+                "status": 500,
+                "message": "Internal Server Error"
+            },
+            status=500
+        )
+
 
 
 def get_dealer_details(request, dealer_id):
@@ -149,9 +160,19 @@ def get_dealer_details(request, dealer_id):
     if dealer_id:
         endpoint = f"/fetchDealer/{dealer_id}"
         dealership = get_request(endpoint)
-        return JsonResponse({"status": 200, "dealer": dealership})
+        return JsonResponse(
+            {
+                "status": 200,
+                "dealer": dealership
+            }
+        )
 
-    return JsonResponse({"status": 400, "message": "Bad Request"})
+    return JsonResponse(
+        {
+            "status": 400,
+            "message": "Bad Request"
+        }
+    )
 
 
 def add_review(request):
@@ -163,7 +184,12 @@ def add_review(request):
             return JsonResponse({"status": 200})
         except Exception as e:
             print(f"Error posting review: {e}")
-            return JsonResponse({"status": 401, "message": "Error in posting review"})
+            return JsonResponse(
+                {
+                    "status": 401,
+                    "message": "Error in posting review"
+                }
+            )
 
     return JsonResponse({"status": 403, "message": "Unauthorized"})
 
