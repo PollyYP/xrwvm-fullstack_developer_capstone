@@ -128,7 +128,9 @@ def get_dealer_reviews(request, dealer_id):
                 print(f"Sentiment analysis response: {sentiment_response}")
 
                 if sentiment_response and 'sentiment' in sentiment_response:
-                    review_detail['sentiment'] = sentiment_response['sentiment']
+                    sentiment = sentiment_response['sentiment']
+                    review_detail['sentiment'] = sentiment
+
                 else:
                     print(
                         "Error: Sentiment analysis failed or returned incomplete data."
@@ -152,7 +154,6 @@ def get_dealer_reviews(request, dealer_id):
             },
             status=500
         )
-
 
 
 def get_dealer_details(request, dealer_id):
