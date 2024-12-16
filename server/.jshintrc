@@ -1,4 +1,6 @@
 {
     "esversion": 8,
+    "undef": true,
+    "unused": true,
     "dot-notation": false
 }
