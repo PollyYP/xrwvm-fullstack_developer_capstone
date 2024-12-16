@@ -1,7 +1,8 @@
 """
 Django models for the application.
 
-This module defines the CarMake and CarModel models for representing car data in the database,
+This module defines the CarMake and CarModel models
+for representing car data in the database,
 including make, model, type, year, and relationships.
 """
 
@@ -46,7 +47,7 @@ class CarModel(models.Model):
     """
 
     car_make = models.ForeignKey(
-    CarMake, on_delete=models.CASCADE
+        CarMake, on_delete=models.CASCADE
     )  # Many-to-One relationship
     dealer_id = models.IntegerField(null=True, blank=True)
     name = models.CharField(max_length=100)

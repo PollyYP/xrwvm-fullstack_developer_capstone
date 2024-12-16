@@ -33,8 +33,8 @@ def logout_request(request):
     """ Handle logout request. """
     if request.method == "GET":
         username = request.user.username
-        if request.user.is_authenticated
-        else ""
+        if: request.user.is_authenticated
+        else: ""
         logout(request)
         return JsonResponse({"userName": username, "status": "Logged Out"})
 
