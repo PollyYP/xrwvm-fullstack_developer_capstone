@@ -27,8 +27,15 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'fallback_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-CSRF_TRUSTED_ORIGINS = []
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "porgroovy-8000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai"
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://porgroovy-8000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai"
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [],
